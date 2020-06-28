@@ -14,6 +14,21 @@ namespace ConnectFour
             board[2, 0] = 2;
 
             PrintBoard(board);
+
+            Console.Write("   Which column? ");
+            int move = Int32.Parse(Console.ReadLine()) - 1;
+
+            for (int i = 0; i <= 5; i++)
+            {
+                if (board[move, i] == 0)
+                {
+                    board[move, i] = 1;
+                    break;
+                }
+            }
+
+            PrintBoard(board);
+
 /*
 ┌───┬───┬───┬───┬───┬───┬───┐
 │   │   │   │   │   │   │   │
@@ -66,6 +81,7 @@ namespace ConnectFour
                 }
             }
             Console.WriteLine("   └───┴───┴───┴───┴───┴───┴───┘");
+            Console.WriteLine("");
         }
     }
 }
