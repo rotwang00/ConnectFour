@@ -15,9 +15,11 @@ namespace ConnectFour
 
         private static void GameLoop(int[,] board)
         {
+            PrintBoard(board);
+
             while (true)
             {
-                PrintBoard(board);
+                // X moves
 
                 Console.Write("   X's move. Which column? ");
                 int xmove = Int32.Parse(Console.ReadLine()) - 1;
@@ -31,7 +33,12 @@ namespace ConnectFour
                     }
                 }
 
+                // Check for X win
+
                 PrintBoard(board);
+                CheckForWin(1, board);
+
+                // O moves
 
                 Console.Write("   O's move. Which column? ");
                 int ymove = Int32.Parse(Console.ReadLine()) - 1;
@@ -44,6 +51,65 @@ namespace ConnectFour
                         break;
                     }
                 }
+                
+                // Check for O win
+                PrintBoard(board);
+                CheckForWin(2, board);
+            }
+        }
+
+        static void CheckForWin(int player, int[,] board)
+        {
+            // Check columns
+
+            for (int i = 0; i <= 6; i++)
+            {
+                for (int j = 0; j <= 2; j++)
+                {
+                    if (board[i, j] == player && board[i, j + 1] == player && board[i, j + 2] == player && board[i, j + 3] == player)
+                    {
+                        Console.WriteLine("Winner!");
+                    }
+                }
+            }
+
+            // Check rows
+
+            for (int i = 0; i <= 3; i++)
+            {
+                for (int j = 0; j <= 5; j++)
+                {
+                    if (board[i, j] == player && board[i + 1, j] == player && board[i + 2, j] == player && board[i + 3, j] == player)
+                    {
+                        Console.WriteLine("Winner!");
+                    }
+                }
+            }
+
+            // Check diagonals from lower left
+
+            for (int i = 0; i <= 3; i++)
+            {
+                for (int j = 0; j <= 2; j++)
+                {
+                    if (board[i, j] == player && board[i + 1, j + 1] == player && board[i + 2, j + 2] == player && board[i + 3, j + 3] == player)
+                    {
+                        Console.WriteLine("Winner!");
+                    }
+                }
+            }
+
+            // Check diagonals from upper left
+
+            for (int i = 0; i <= 3; i++)
+            {
+                for (int j = 5; j >= 3; j--)
+                {
+                    if (board[i, j] == player && board[i + 1, j - 1] == player && board[i + 2, j - 2] == player && board[i + 3, j - 3] == player)
+                    {
+                        Console.WriteLine("Winner!");
+                    }
+                }
             }
         }
 
@@ -54,13 +120,13 @@ namespace ConnectFour
 
             Console.WriteLine("     1   2   3   4   5   6   7");
             Console.WriteLine("   ┌───┬───┬───┬───┬───┬───┬───┐");
-            
+
             for (int i = 5; i >= 0; i--)
             {
                 Console.Write("   │ ");
                 for (int j = 0; j <= 6; j++)
                 {
-                    switch(boardData[j, i])
+                    switch (boardData[j, i])
                     {
                         case 0:
                             Console.Write("  │ ");
