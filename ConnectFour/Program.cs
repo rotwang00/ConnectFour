@@ -10,41 +10,41 @@ namespace ConnectFour
 
             int[,] board = new int[7, 6];
 
-            board[3, 0] = 1;
-            board[2, 0] = 2;
+            GameLoop(board);
+        }
 
-            PrintBoard(board);
-
-            Console.Write("   Which column? ");
-            int move = Int32.Parse(Console.ReadLine()) - 1;
-
-            for (int i = 0; i <= 5; i++)
+        private static void GameLoop(int[,] board)
+        {
+            while (true)
             {
-                if (board[move, i] == 0)
+                PrintBoard(board);
+
+                Console.Write("   X's move. Which column? ");
+                int xmove = Int32.Parse(Console.ReadLine()) - 1;
+
+                for (int i = 0; i <= 5; i++)
                 {
-                    board[move, i] = 1;
-                    break;
+                    if (board[xmove, i] == 0)
+                    {
+                        board[xmove, i] = 1;
+                        break;
+                    }
+                }
+
+                PrintBoard(board);
+
+                Console.Write("   O's move. Which column? ");
+                int ymove = Int32.Parse(Console.ReadLine()) - 1;
+
+                for (int i = 0; i <= 5; i++)
+                {
+                    if (board[ymove, i] == 0)
+                    {
+                        board[ymove, i] = 2;
+                        break;
+                    }
                 }
             }
-
-            PrintBoard(board);
-
-/*
-┌───┬───┬───┬───┬───┬───┬───┐
-│   │   │   │   │   │   │   │
-├───┼───┼───┼───┼───┼───┼───┤
-│   │   │   │   │   │   │   │
-├───┼───┼───┼───┼───┼───┼───┤
-│   │   │   │   │   │   │   │
-├───┼───┼───┼───┼───┼───┼───┤
-│   │   │   │   │   │   │   │
-├───┼───┼───┼───┼───┼───┼───┤
-│   │   │   │ O │   │   │   │
-├───┼───┼───┼───┼───┼───┼───┤
-│   │   │   │ X │   │   │   │
-└───┴───┴───┴───┴───┴───┴───┘
-*/
-
         }
 
         static void PrintBoard(int[,] boardData)
